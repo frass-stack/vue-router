@@ -6,7 +6,7 @@
         <CustomLink 
             v-for="link in links"
             :key="link.to"
-            :link="link.name"
+            :link="link"
         />
     </div>
 </template>
@@ -18,9 +18,11 @@ export default {
     data(){
         return {
             links: [
-                { to:'/home', name:'Pokemons' },
-                { to:'/pokemonid/50', name:'Por ID' },
-                { to:'/about', name:'about' },
+                { to:'pokemon-home', name:'Pokemons' },
+                { to:'pokemon-id', name:'Por ID', id: 151 },
+                { to:'pokemon-about', name:'about' },
+                { to:'dbz-characters', name:'Personajes' },
+                { to:'dbz-about', name:'DBZ-About' },
                 { to:'https://google.com', name:'Google' }
             ]
         }
@@ -35,6 +37,7 @@ export default {
 
 div {
     padding: 0 30px;
+    display: inline-block;
 }
 
 div a {

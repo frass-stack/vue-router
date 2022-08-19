@@ -1,8 +1,12 @@
 <template>
   <div>
-    <NavBar />
-    <img alt="Vue logo" src="./assets/logo.png">
-    <router-view />
+    <div>
+      <NavBar />
+    </div>
+    <div>
+      <img alt="Vue logo" src="./assets/logo.png">
+      <router-view />
+    </div>
   </div>
 </template>
 
