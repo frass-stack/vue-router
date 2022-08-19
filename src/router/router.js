@@ -8,26 +8,58 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/pokemon'
   },
-  { 
-    path: '/',
-    name: 'home', 
-    component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/ListPage') 
+  {
+    path:'/pokemon',
+    name:'pokemon',
+    component: () => import(/*webpackChunkName:"PokemonLayout"*/ '../modules/pokemon/layouts/PokemonLayout'),
+    children: [
+      { 
+        path: 'home',
+        name: 'pokemon-home', 
+        component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/ListPage') 
+      },
+      { 
+        path: 'about', 
+        name: 'pokemon-about',
+        component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/AboutPage') 
+      },
+      { 
+        path: 'pokemonid/:id',
+        name: 'pokemon-id',
+        component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/PokemonPage'),
+        props: ( route ) =>{
+          const id = Number(route.params.id)
+          return isNaN( id )? {id:1}:{ id }
+        }
+      },
+      {
+        path: '',
+        redirect: { name: 'pokemon-about' }
+      }
+    ]
   },
-  { 
-    path: '/about', 
-    name: 'about',
-    component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/AboutPage') 
-  },
-  { 
-    path: '/pokemonid/:id',
-    name: 'pokemon-id',
-    component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/PokemonPage'),
-    props: ( route ) =>{
-      const id = Number(route.params.id)
-      return isNaN( id )? {id:1}:{ id }
-    }
+  {
+    path:'/dbz',
+    name:'dbz',
+    component: () => import(/*webpackChunkName:"DragonBallLayout"*/ '../modules/dbz/layouts/DragonBallLayout'),
+    children: [
+      { 
+        path: 'characters',
+        name: 'dbz-characters', 
+        component: () => import(/*webpackChunkName:*/ '../modules/dbz/pages/Characters') 
+      },
+      { 
+        path: 'about', 
+        name: 'dbz-about',
+        component: () => import(/*webpackChunkName:*/ '../modules/dbz/pages/About') 
+      },
+      {
+        path: '',
+        redirect: { name: 'dbz-characters' }
+      }
+    ]
   },
   { 
     path: '/:pathMatch(.*)*', 
