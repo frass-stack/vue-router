@@ -15,8 +15,12 @@ const routes = [
     component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/AboutPage') 
   },
   { 
-    path: '/id', 
-    component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/PokemonPage') 
+    path: '/:id', 
+    component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/PokemonPage'),
+    props: ( route ) =>{
+      const id = Number(route.params.id)
+      return isNaN( id )? {id:1}:{ id }
+    }
   },
   { 
     path: '/:pathMatch(.*)*', 
