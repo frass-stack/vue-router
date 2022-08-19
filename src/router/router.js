@@ -1,19 +1,27 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 // 1. Define route components.
 // These can be imported from other files
-import AboutPage from '@/modules/pokemon/pages/AboutPage'
-import ListPage from '@/modules/pokemon/pages/ListPage'
-import PokemonPage from '@/modules/pokemon/pages/PokemonPage'
-import NotPageFound from '@/modules/shared/pages/NotPageFound'
 
 // 2. Define some routes
 // Each route should map to a component.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/', component: ListPage },
-  { path: '/about', component: AboutPage },
-  { path: '/id', component: PokemonPage },
-  { path: '/:pathMatch(.*)*', component: NotPageFound },
+  { 
+    path: '/', 
+    component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/ListPage') 
+  },
+  { 
+    path: '/about', 
+    component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/AboutPage') 
+  },
+  { 
+    path: '/id', 
+    component: () => import(/*webpackChunkName:*/ '../modules/pokemon/pages/PokemonPage') 
+  },
+  { 
+    path: '/:pathMatch(.*)*', 
+    component: () => import(/*webpackChunkName:*/ '../modules/shared/pages/NotPageFound') 
+  },
 ]
 
 // 3. Create the router instance and pass the `routes` option
